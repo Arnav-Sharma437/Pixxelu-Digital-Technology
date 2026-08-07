@@ -2,6 +2,7 @@
 
 import React, { useState, useLayoutEffect, useRef } from 'react';
 import gsap from 'gsap';
+import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { ButtonPrimary, ButtonGhost } from './ui/Button';
 
 const slides = [
@@ -89,6 +90,14 @@ export function Hero() {
     return () => ctx.revert();
   };
 
+  const nextSlide = () => {
+    handleSlideChange((activeSlide + 1) % slides.length);
+  };
+
+  const prevSlide = () => {
+    handleSlideChange((activeSlide - 1 + slides.length) % slides.length);
+  };
+
   const slide = slides[activeSlide];
 
   return (
@@ -116,7 +125,7 @@ export function Hero() {
 
       {/* Main Banner Content */}
       <div className="relative z-10 flex-1 flex flex-col justify-center max-w-7xl mx-auto w-full px-6">
-        <div ref={slideContentRef} className="max-w-4xl">
+        <div ref={slideContentRef} className="max-w-4xl relative">
           <div className="hero-eyebrow font-nav text-[var(--color-orange)] mb-6 flex items-center">
             <span className="w-8 h-[1px] bg-[var(--color-orange)] mr-4" />
             {slide.eyebrow}
@@ -134,8 +143,24 @@ export function Hero() {
         </div>
       </div>
 
+      {/* Navigation Arrows */}
+      <button 
+        onClick={prevSlide}
+        className="absolute left-4 md:left-8 top-1/2 -translate-y-1/2 z-20 p-3 rounded-full bg-black/20 hover:bg-black/50 text-white backdrop-blur-md transition-colors border border-white/10"
+        aria-label="Previous slide"
+      >
+        <ChevronLeft size={32} />
+      </button>
+      <button 
+        onClick={nextSlide}
+        className="absolute right-4 md:right-8 top-1/2 -translate-y-1/2 z-20 p-3 rounded-full bg-black/20 hover:bg-black/50 text-white backdrop-blur-md transition-colors border border-white/10"
+        aria-label="Next slide"
+      >
+        <ChevronRight size={32} />
+      </button>
+
       {/* Thumbnail Strip */}
-      <div className="relative z-20 w-full bg-black/20 backdrop-blur-sm border-t border-white/10 mt-12">
+      <div className="relative z-20 w-full bg-black/20 backdrop-blur-sm border-t border-white/10 mt-auto">
         <div className="max-w-7xl mx-auto px-6 py-6">
           <div className="flex gap-4 overflow-x-auto snap-x scrollbar-hide pb-2 md:pb-0">
             {slides.map((s, i) => (
@@ -153,7 +178,7 @@ export function Hero() {
                   style={{ backgroundImage: `url(${s.image})` }}
                 />
                 <div className="absolute inset-0 bg-black/40 group-hover:bg-black/20 transition-colors" />
-                <span className="absolute bottom-3 left-4 font-display font-bold text-lg">{s.name}</span>
+                <span className="absolute bottom-3 left-4 font-display font-bold text-lg text-white">{s.name}</span>
               </button>
             ))}
           </div>
