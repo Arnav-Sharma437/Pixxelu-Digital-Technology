@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useLayoutEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import gsap from 'gsap';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { ButtonPrimary, ButtonGhost } from './ui/Button';
@@ -47,14 +47,14 @@ export function Hero() {
   const slideContentRef = useRef<HTMLDivElement>(null);
   
   // Initial entrance animation
-  useLayoutEffect(() => {
+  useEffect(() => {
     const ctx = gsap.context(() => {
       const tl = gsap.timeline({ defaults: { ease: 'power3.out' } });
       tl.from('.hero-eyebrow', { autoAlpha: 0, y: -10, duration: 0.5 })
         .from('.hero-headline', { autoAlpha: 0, y: 30, duration: 0.8 }, '-=0.2')
         .from('.hero-subhead', { autoAlpha: 0, y: 20, duration: 0.6 }, '-=0.4')
         .from('.hero-cta-row > *', { autoAlpha: 0, y: 20, duration: 0.5, stagger: 0.1 }, '-=0.3')
-        .from('.thumbnail-card', { autoAlpha: 0, y: 30, duration: 0.5, stagger: 0.08 }, '-=0.2');
+        .from('.thumbnail-strip-wrapper', { autoAlpha: 0, y: 30, duration: 0.5 }, '-=0.2');
     }, heroRef);
     return () => ctx.revert();
   }, []);
@@ -64,21 +64,19 @@ export function Hero() {
     setIsTransitioning(true);
 
     const ctx = gsap.context(() => {
-      // Fade out current content
       gsap.to(slideContentRef.current, {
         autoAlpha: 0,
-        y: -20,
-        duration: 0.3,
+        y: -15,
+        duration: 0.25,
         ease: 'power2.in',
         onComplete: () => {
           setActiveSlide(index);
-          // Fade in new content
           gsap.fromTo(slideContentRef.current,
-            { autoAlpha: 0, y: 20 },
+            { autoAlpha: 0, y: 15 },
             { 
               autoAlpha: 1, 
               y: 0, 
-              duration: 0.4, 
+              duration: 0.35, 
               ease: 'power2.out',
               onComplete: () => setIsTransitioning(false)
             }
@@ -105,12 +103,12 @@ export function Hero() {
       <section ref={heroRef} className="relative h-screen bg-[var(--color-off-black)] text-[var(--color-white)] flex flex-col pt-32 pb-0 overflow-hidden">
         
         {/* Background Image with Overlay */}
-        <div className="absolute inset-0 z-0 overflow-hidden">
+        <div className="absolute inset-0 z-0 overflow-hidden bg-[var(--color-black)]">
           {slides.map((s, i) => (
             <div
               key={s.id}
-              className={`absolute inset-0 transition-opacity duration-700 ease-in-out ${
-                i === activeSlide ? 'opacity-30' : 'opacity-0'
+              className={`absolute inset-0 transition-opacity duration-1000 ease-in-out ${
+                i === activeSlide ? 'opacity-40' : 'opacity-0'
               }`}
               style={{
                 backgroundImage: `url(${s.image})`,
@@ -120,24 +118,24 @@ export function Hero() {
             />
           ))}
           {/* Gradient overlay to ensure text readability */}
-          <div className="absolute inset-0 bg-gradient-to-b from-[var(--color-off-black)] via-transparent to-[var(--color-off-black)]" />
-          <div className="absolute inset-0 bg-[var(--color-off-black)] opacity-60" />
+          <div className="absolute inset-0 bg-gradient-to-b from-[var(--color-off-black)]/80 via-transparent to-[var(--color-off-black)]" />
         </div>
 
         {/* Main Banner Content */}
+        {/* Removed flex-col justify-center from the inner wrapper so text anchors to the top and grows downwards, stopping vertical jumping */}
         <div className="relative z-10 flex-1 flex flex-col justify-center max-w-7xl mx-auto w-full px-6">
-          <div ref={slideContentRef} className="max-w-4xl relative min-h-[350px] flex flex-col justify-center">
-            <div className="hero-eyebrow font-nav text-[var(--color-orange)] mb-6 flex items-center">
-              <span className="w-8 h-[1px] bg-[var(--color-orange)] mr-4" />
+          <div ref={slideContentRef} className="max-w-4xl relative min-h-[250px] pb-10">
+            <div className="hero-eyebrow font-nav text-[var(--color-orange)] mb-4 flex items-center text-sm font-semibold tracking-wider">
+              <span className="w-8 h-[2px] bg-[var(--color-orange)] mr-4" />
               {slide.eyebrow}
             </div>
-            <h1 className="hero-headline font-display text-5xl md:text-7xl lg:text-8xl font-bold tracking-tight leading-[1.05] mb-8">
+            <h1 className="hero-headline font-display text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight leading-[1.1] mb-6">
               {slide.headline}
             </h1>
-            <p className="hero-subhead font-body text-xl md:text-2xl text-[var(--color-grey-800)] max-w-2xl mb-12">
+            <p className="hero-subhead font-body text-lg md:text-xl text-[var(--color-grey-800)] max-w-2xl mb-10">
               {slide.subhead}
             </p>
-            <div className="hero-cta-row flex flex-wrap gap-4 mt-auto sm:mt-0">
+            <div className="hero-cta-row flex flex-wrap gap-4">
               <ButtonPrimary>Start a project</ButtonPrimary>
               <ButtonGhost darkSection>See our platforms</ButtonGhost>
             </div>
@@ -147,39 +145,41 @@ export function Hero() {
         {/* Navigation Arrows */}
         <button 
           onClick={prevSlide}
-          className="absolute left-4 md:left-8 top-1/2 -translate-y-1/2 z-20 p-3 rounded-full bg-black/20 hover:bg-black/50 text-white backdrop-blur-md transition-colors border border-white/10"
+          className="absolute left-4 md:left-8 top-1/2 -translate-y-1/2 z-20 p-3 md:p-4 rounded-full bg-black/40 hover:bg-black/70 text-white backdrop-blur-md transition-all border border-white/10 hover:border-white/30"
           aria-label="Previous slide"
         >
-          <ChevronLeft size={32} />
+          <ChevronLeft size={24} />
         </button>
         <button 
           onClick={nextSlide}
-          className="absolute right-4 md:right-8 top-1/2 -translate-y-1/2 z-20 p-3 rounded-full bg-black/20 hover:bg-black/50 text-white backdrop-blur-md transition-colors border border-white/10"
+          className="absolute right-4 md:right-8 top-1/2 -translate-y-1/2 z-20 p-3 md:p-4 rounded-full bg-black/40 hover:bg-black/70 text-white backdrop-blur-md transition-all border border-white/10 hover:border-white/30"
           aria-label="Next slide"
         >
-          <ChevronRight size={32} />
+          <ChevronRight size={24} />
         </button>
 
         {/* Thumbnail Strip */}
-        <div className="relative z-20 w-full bg-black/20 backdrop-blur-sm border-t border-white/10 mt-auto">
-          <div className="max-w-7xl mx-auto px-6 py-6">
-            <div className="flex gap-4 overflow-x-auto snap-x scrollbar-hide pb-2 md:pb-0">
+        <div className="thumbnail-strip-wrapper relative z-20 w-full bg-gradient-to-t from-black/80 to-transparent mt-auto pt-10 pb-6 border-b-2 border-[var(--color-orange)]">
+          <div className="max-w-7xl mx-auto px-6">
+            <div className="flex gap-4 overflow-x-auto snap-x scrollbar-hide">
               {slides.map((s, i) => (
                 <button
                   key={s.id}
                   onClick={() => handleSlideChange(i)}
-                  className={`thumbnail-card snap-start shrink-0 relative w-48 h-24 rounded-xl overflow-hidden text-left transition-all duration-300 ${
+                  className={`thumbnail-card snap-start shrink-0 relative w-40 h-20 md:w-48 md:h-24 rounded-lg overflow-hidden text-left transition-all duration-300 ${
                     activeSlide === i 
-                      ? 'border-2 border-[var(--color-orange)] opacity-100 scale-100' 
-                      : 'border-2 border-transparent opacity-50 hover:opacity-80 scale-95'
+                      ? 'border-2 border-[var(--color-orange)] opacity-100 scale-100 shadow-[0_0_15px_rgba(232,92,43,0.3)]' 
+                      : 'border border-white/20 opacity-40 hover:opacity-100 scale-95 hover:scale-100'
                   }`}
                 >
                   <div 
                     className="absolute inset-0 bg-cover bg-center"
                     style={{ backgroundImage: `url(${s.image})` }}
                   />
-                  <div className="absolute inset-0 bg-black/40 group-hover:bg-black/20 transition-colors" />
-                  <span className="absolute bottom-3 left-4 font-display font-bold text-lg text-white">{s.name}</span>
+                  <div className="absolute inset-0 bg-black/50 transition-colors" />
+                  <span className={`absolute bottom-2 left-3 font-display font-semibold text-sm md:text-base text-white transition-all duration-300 ${activeSlide === i ? 'translate-y-0' : 'translate-y-1'}`}>
+                    {s.name}
+                  </span>
                 </button>
               ))}
             </div>
@@ -187,20 +187,20 @@ export function Hero() {
         </div>
       </section>
 
-      {/* Stat Strip - Placed below the Hero section */}
+      {/* Stat Strip */}
       <section className="relative z-20 bg-[var(--color-white)] text-[var(--color-black)] py-10 w-full border-b border-gray-100">
         <div className="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between divide-y md:divide-y-0 md:divide-x divide-gray-200">
           <div className="py-4 md:py-0 md:pr-8 flex-1 text-center md:text-left">
-            <div className="font-display text-4xl font-bold mb-1">50+</div>
-            <div className="font-nav text-[var(--color-grey-500)]">Custom sites launched</div>
+            <div className="font-display text-3xl md:text-4xl font-bold mb-1">50+</div>
+            <div className="font-nav text-[var(--color-grey-500)] text-xs md:text-sm">Custom sites launched</div>
           </div>
           <div className="py-4 md:py-0 md:px-8 flex-1 text-center md:text-left">
-            <div className="font-display text-4xl font-bold mb-1">4</div>
-            <div className="font-nav text-[var(--color-grey-500)]">Platforms mastered & custom-built</div>
+            <div className="font-display text-3xl md:text-4xl font-bold mb-1">4</div>
+            <div className="font-nav text-[var(--color-grey-500)] text-xs md:text-sm">Platforms mastered & custom-built</div>
           </div>
           <div className="py-4 md:py-0 md:pl-8 flex-1 text-center md:text-left">
-            <div className="font-display text-4xl font-bold mb-1">5.0</div>
-            <div className="font-nav text-[var(--color-grey-500)]">Avg client satisfaction rating</div>
+            <div className="font-display text-3xl md:text-4xl font-bold mb-1">5.0</div>
+            <div className="font-nav text-[var(--color-grey-500)] text-xs md:text-sm">Avg client satisfaction rating</div>
           </div>
         </div>
       </section>
