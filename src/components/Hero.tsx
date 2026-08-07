@@ -101,92 +101,94 @@ export function Hero() {
   const slide = slides[activeSlide];
 
   return (
-    <section ref={heroRef} className="relative min-h-screen bg-[var(--color-off-black)] text-[var(--color-white)] flex flex-col pt-32 pb-0">
-      
-      {/* Background Image with Overlay */}
-      <div className="absolute inset-0 z-0 overflow-hidden">
-        {slides.map((s, i) => (
-          <div
-            key={s.id}
-            className={`absolute inset-0 transition-opacity duration-700 ease-in-out ${
-              i === activeSlide ? 'opacity-30' : 'opacity-0'
-            }`}
-            style={{
-              backgroundImage: `url(${s.image})`,
-              backgroundSize: 'cover',
-              backgroundPosition: 'center',
-            }}
-          />
-        ))}
-        {/* Gradient overlay to ensure text readability */}
-        <div className="absolute inset-0 bg-gradient-to-b from-[var(--color-off-black)] via-transparent to-[var(--color-off-black)]" />
-        <div className="absolute inset-0 bg-[var(--color-off-black)] opacity-60" />
-      </div>
+    <>
+      <section ref={heroRef} className="relative h-screen bg-[var(--color-off-black)] text-[var(--color-white)] flex flex-col pt-32 pb-0 overflow-hidden">
+        
+        {/* Background Image with Overlay */}
+        <div className="absolute inset-0 z-0 overflow-hidden">
+          {slides.map((s, i) => (
+            <div
+              key={s.id}
+              className={`absolute inset-0 transition-opacity duration-700 ease-in-out ${
+                i === activeSlide ? 'opacity-30' : 'opacity-0'
+              }`}
+              style={{
+                backgroundImage: `url(${s.image})`,
+                backgroundSize: 'cover',
+                backgroundPosition: 'center',
+              }}
+            />
+          ))}
+          {/* Gradient overlay to ensure text readability */}
+          <div className="absolute inset-0 bg-gradient-to-b from-[var(--color-off-black)] via-transparent to-[var(--color-off-black)]" />
+          <div className="absolute inset-0 bg-[var(--color-off-black)] opacity-60" />
+        </div>
 
-      {/* Main Banner Content */}
-      <div className="relative z-10 flex-1 flex flex-col justify-center max-w-7xl mx-auto w-full px-6">
-        <div ref={slideContentRef} className="max-w-4xl relative">
-          <div className="hero-eyebrow font-nav text-[var(--color-orange)] mb-6 flex items-center">
-            <span className="w-8 h-[1px] bg-[var(--color-orange)] mr-4" />
-            {slide.eyebrow}
-          </div>
-          <h1 className="hero-headline font-display text-5xl md:text-7xl lg:text-8xl font-bold tracking-tight leading-[1.05] mb-8">
-            {slide.headline}
-          </h1>
-          <p className="hero-subhead font-body text-xl md:text-2xl text-[var(--color-grey-800)] max-w-2xl mb-12">
-            {slide.subhead}
-          </p>
-          <div className="hero-cta-row flex flex-wrap gap-4">
-            <ButtonPrimary>Start a project</ButtonPrimary>
-            <ButtonGhost darkSection>See our platforms</ButtonGhost>
+        {/* Main Banner Content */}
+        <div className="relative z-10 flex-1 flex flex-col justify-center max-w-7xl mx-auto w-full px-6">
+          <div ref={slideContentRef} className="max-w-4xl relative min-h-[350px] flex flex-col justify-center">
+            <div className="hero-eyebrow font-nav text-[var(--color-orange)] mb-6 flex items-center">
+              <span className="w-8 h-[1px] bg-[var(--color-orange)] mr-4" />
+              {slide.eyebrow}
+            </div>
+            <h1 className="hero-headline font-display text-5xl md:text-7xl lg:text-8xl font-bold tracking-tight leading-[1.05] mb-8">
+              {slide.headline}
+            </h1>
+            <p className="hero-subhead font-body text-xl md:text-2xl text-[var(--color-grey-800)] max-w-2xl mb-12">
+              {slide.subhead}
+            </p>
+            <div className="hero-cta-row flex flex-wrap gap-4 mt-auto sm:mt-0">
+              <ButtonPrimary>Start a project</ButtonPrimary>
+              <ButtonGhost darkSection>See our platforms</ButtonGhost>
+            </div>
           </div>
         </div>
-      </div>
 
-      {/* Navigation Arrows */}
-      <button 
-        onClick={prevSlide}
-        className="absolute left-4 md:left-8 top-1/2 -translate-y-1/2 z-20 p-3 rounded-full bg-black/20 hover:bg-black/50 text-white backdrop-blur-md transition-colors border border-white/10"
-        aria-label="Previous slide"
-      >
-        <ChevronLeft size={32} />
-      </button>
-      <button 
-        onClick={nextSlide}
-        className="absolute right-4 md:right-8 top-1/2 -translate-y-1/2 z-20 p-3 rounded-full bg-black/20 hover:bg-black/50 text-white backdrop-blur-md transition-colors border border-white/10"
-        aria-label="Next slide"
-      >
-        <ChevronRight size={32} />
-      </button>
+        {/* Navigation Arrows */}
+        <button 
+          onClick={prevSlide}
+          className="absolute left-4 md:left-8 top-1/2 -translate-y-1/2 z-20 p-3 rounded-full bg-black/20 hover:bg-black/50 text-white backdrop-blur-md transition-colors border border-white/10"
+          aria-label="Previous slide"
+        >
+          <ChevronLeft size={32} />
+        </button>
+        <button 
+          onClick={nextSlide}
+          className="absolute right-4 md:right-8 top-1/2 -translate-y-1/2 z-20 p-3 rounded-full bg-black/20 hover:bg-black/50 text-white backdrop-blur-md transition-colors border border-white/10"
+          aria-label="Next slide"
+        >
+          <ChevronRight size={32} />
+        </button>
 
-      {/* Thumbnail Strip */}
-      <div className="relative z-20 w-full bg-black/20 backdrop-blur-sm border-t border-white/10 mt-auto">
-        <div className="max-w-7xl mx-auto px-6 py-6">
-          <div className="flex gap-4 overflow-x-auto snap-x scrollbar-hide pb-2 md:pb-0">
-            {slides.map((s, i) => (
-              <button
-                key={s.id}
-                onClick={() => handleSlideChange(i)}
-                className={`thumbnail-card snap-start shrink-0 relative w-48 h-24 rounded-xl overflow-hidden text-left transition-all duration-300 ${
-                  activeSlide === i 
-                    ? 'border-2 border-[var(--color-orange)] opacity-100 scale-100' 
-                    : 'border-2 border-transparent opacity-50 hover:opacity-80 scale-95'
-                }`}
-              >
-                <div 
-                  className="absolute inset-0 bg-cover bg-center"
-                  style={{ backgroundImage: `url(${s.image})` }}
-                />
-                <div className="absolute inset-0 bg-black/40 group-hover:bg-black/20 transition-colors" />
-                <span className="absolute bottom-3 left-4 font-display font-bold text-lg text-white">{s.name}</span>
-              </button>
-            ))}
+        {/* Thumbnail Strip */}
+        <div className="relative z-20 w-full bg-black/20 backdrop-blur-sm border-t border-white/10 mt-auto">
+          <div className="max-w-7xl mx-auto px-6 py-6">
+            <div className="flex gap-4 overflow-x-auto snap-x scrollbar-hide pb-2 md:pb-0">
+              {slides.map((s, i) => (
+                <button
+                  key={s.id}
+                  onClick={() => handleSlideChange(i)}
+                  className={`thumbnail-card snap-start shrink-0 relative w-48 h-24 rounded-xl overflow-hidden text-left transition-all duration-300 ${
+                    activeSlide === i 
+                      ? 'border-2 border-[var(--color-orange)] opacity-100 scale-100' 
+                      : 'border-2 border-transparent opacity-50 hover:opacity-80 scale-95'
+                  }`}
+                >
+                  <div 
+                    className="absolute inset-0 bg-cover bg-center"
+                    style={{ backgroundImage: `url(${s.image})` }}
+                  />
+                  <div className="absolute inset-0 bg-black/40 group-hover:bg-black/20 transition-colors" />
+                  <span className="absolute bottom-3 left-4 font-display font-bold text-lg text-white">{s.name}</span>
+                </button>
+              ))}
+            </div>
           </div>
         </div>
-      </div>
+      </section>
 
-      {/* Stat Strip */}
-      <div className="relative z-20 bg-[var(--color-white)] text-[var(--color-black)] py-10 w-full">
+      {/* Stat Strip - Placed below the Hero section */}
+      <section className="relative z-20 bg-[var(--color-white)] text-[var(--color-black)] py-10 w-full border-b border-gray-100">
         <div className="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between divide-y md:divide-y-0 md:divide-x divide-gray-200">
           <div className="py-4 md:py-0 md:pr-8 flex-1 text-center md:text-left">
             <div className="font-display text-4xl font-bold mb-1">50+</div>
@@ -201,8 +203,7 @@ export function Hero() {
             <div className="font-nav text-[var(--color-grey-500)]">Avg client satisfaction rating</div>
           </div>
         </div>
-      </div>
-
-    </section>
+      </section>
+    </>
   );
 }
