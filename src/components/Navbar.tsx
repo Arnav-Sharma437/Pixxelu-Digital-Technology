@@ -40,6 +40,28 @@ const megaMenuColumns = [
   },
 ];
 
+const academyLinks = [
+  'Who We Are',
+  'Facility',
+  'Scholarship',
+  'Franchise',
+  'Placement',
+  'Affiliations & Accreditations',
+  'Online Diploma Programs',
+];
+
+const studentAreaLinks = [
+  'Placement Students',
+  'Testimonials & Reviews',
+  'All Events Gallery',
+  'Creative Gallery',
+  'Student Gallery',
+  'Photography Gallery',
+  'Animation Gallery',
+  'Video Gallery',
+  'Animation School and Career Guide',
+];
+
 export function Navbar() {
   const [scrolled, setScrolled] = useState(false);
 
@@ -73,12 +95,27 @@ export function Navbar() {
         {/* Nav Links */}
         <nav className="hidden lg:flex items-center space-x-10 font-nav text-sm tracking-wide font-medium">
           
+          {/* Academy */}
           <div className="group relative h-24 flex items-center cursor-pointer">
             <span className={`flex items-center hover:text-[var(--color-orange)] transition-colors ${scrolled ? 'text-[var(--color-black)]' : 'text-current'}`}>
               Academy <ChevronDown className="ml-1 w-4 h-4" />
             </span>
+            
+            {/* Simple Dropdown */}
+            <div className="absolute top-[80px] left-0 w-[280px] bg-[var(--color-white)] text-[var(--color-black)] shadow-2xl rounded-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform origin-top translate-y-2 group-hover:translate-y-0 py-4">
+              <ul className="flex flex-col">
+                {academyLinks.map((link, idx) => (
+                  <li key={idx}>
+                    <Link href="#" className="block px-6 py-2.5 text-[15px] text-gray-700 hover:text-[var(--color-orange)] hover:bg-gray-50 transition-colors">
+                      {link}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
           </div>
 
+          {/* Courses */}
           <div className="group relative h-24 flex items-center cursor-pointer">
             <span className={`flex items-center hover:text-[var(--color-orange)] transition-colors ${scrolled ? 'text-[var(--color-black)]' : 'text-current'}`}>
               Courses <ChevronDown className="ml-1 w-4 h-4" />
@@ -105,12 +142,27 @@ export function Navbar() {
             </div>
           </div>
 
+          {/* Student Area */}
           <div className="group relative h-24 flex items-center cursor-pointer">
             <span className={`flex items-center hover:text-[var(--color-orange)] transition-colors ${scrolled ? 'text-[var(--color-black)]' : 'text-current'}`}>
               Student Area <ChevronDown className="ml-1 w-4 h-4" />
             </span>
+
+            {/* Simple Dropdown */}
+            <div className="absolute top-[80px] left-0 w-[300px] bg-[var(--color-white)] text-[var(--color-black)] shadow-2xl rounded-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform origin-top translate-y-2 group-hover:translate-y-0 py-4">
+              <ul className="flex flex-col">
+                {studentAreaLinks.map((link, idx) => (
+                  <li key={idx}>
+                    <Link href="#" className="block px-6 py-2.5 text-[15px] text-gray-700 hover:text-[var(--color-orange)] hover:bg-gray-50 transition-colors">
+                      {link}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
           </div>
 
+          {/* Result */}
           <div className="group relative h-24 flex items-center cursor-pointer">
             <Link href="/result" className={`hover:text-[var(--color-orange)] transition-colors ${scrolled ? 'text-[var(--color-black)]' : 'text-current'}`}>
               Result
