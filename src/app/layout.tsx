@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
-import { Outfit, Inter } from "next/font/google";
+import { Space_Grotesk, Inter } from "next/font/google";
 import "./globals.css";
 import { AmbientBackground } from "@/components/AmbientBackground";
 import { Navbar } from "@/components/Navbar";
 
-const fontDisplay = Outfit({
+const fontDisplay = Space_Grotesk({
   variable: "--font-display",
   subsets: ["latin"],
 });
@@ -34,7 +34,7 @@ export default function RootLayout({
       lang="en"
       className={`${fontDisplay.variable} ${fontBody.variable} ${fontNav.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col relative">
+      <body className="min-h-full flex flex-col relative font-body text-[var(--color-black)] bg-[var(--color-white)]">
         <AmbientBackground />
         <Navbar />
         {children}
