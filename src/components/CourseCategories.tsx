@@ -82,13 +82,13 @@ export function CourseCategories() {
       <div className="max-w-[1400px] mx-auto px-6 relative z-10">
         
         {/* Section Header */}
-        <div className="course-header text-center mb-16 max-w-4xl mx-auto">
-          <h2 className="font-display font-bold text-3xl md:text-4xl lg:text-5xl tracking-tight leading-tight mb-4">
+        <div className="course-header text-center mb-16 max-w-5xl mx-auto flex flex-col items-center">
+          <h2 className="font-display font-bold text-3xl md:text-4xl lg:text-[42px] tracking-tight leading-[1.2] mb-4 max-w-[1100px]">
             India's First AI-Powered Animation, VFX & Digital Content Creation Academy<br className="hidden md:block"/>
-            <span className="text-white block mt-2">Job & Career with AI & AVGC-XR Skills</span>
+            <span className="text-white block mt-1">Job & Career with AI & AVGC-XR Skills</span>
           </h2>
-          <p className="font-body text-sm md:text-base text-gray-300 font-semibold tracking-wide uppercase">
-            Turn Your Creativity into a Career with AI & AVGC-XR Skills
+          <p className="font-body text-[11px] md:text-[13px] text-gray-300 font-bold tracking-widest uppercase mt-2">
+            Turn Your Creativity Into A Career With AI & AVGC-XR Skills
           </p>
         </div>
 
@@ -100,7 +100,7 @@ export function CourseCategories() {
             return (
               <div 
                 key={course.id} 
-                className="course-card relative rounded-[14px] overflow-hidden group cursor-pointer aspect-[4/5] sm:aspect-auto sm:h-[380px]"
+                className="course-card relative rounded-[14px] overflow-hidden group cursor-pointer aspect-[4/5] sm:aspect-auto sm:h-[400px]"
                 style={{
                   '--card-accent': accentColor,
                   border: '1px solid color-mix(in srgb, var(--card-accent) 60%, transparent)',
@@ -129,7 +129,7 @@ export function CourseCategories() {
 
                 {/* Badge */}
                 <span 
-                  className="absolute top-4 left-4 px-2.5 py-1 text-[9px] font-mono font-bold uppercase tracking-wider rounded-md backdrop-blur-md z-30 transition-transform duration-500"
+                  className="absolute top-4 left-4 px-2.5 py-1 text-[10px] font-mono font-bold uppercase tracking-wider rounded-md backdrop-blur-md z-30 transition-transform duration-500"
                   style={{ 
                     backgroundColor: 'rgba(0,0,0,0.6)', 
                     color: 'white',
@@ -141,10 +141,10 @@ export function CourseCategories() {
 
                 {/* Card Content - Pinned to bottom */}
                 <div className="absolute bottom-0 left-0 w-full p-5 z-30 flex flex-col justify-end">
-                  <h3 className="font-display font-bold text-[16px] md:text-[18px] mb-2 text-white leading-[1.3] drop-shadow-lg">
+                  <h3 className="font-display font-bold text-[18px] md:text-[20px] mb-2 text-white leading-[1.25] drop-shadow-lg">
                     {course.title}
                   </h3>
-                  <p className="font-body text-[10.5px] text-gray-300/90 leading-[1.5] drop-shadow-md pr-1">
+                  <p className="font-body text-[12px] md:text-[13px] text-gray-300/90 leading-[1.5] drop-shadow-md pr-1">
                     {course.skills}
                   </p>
                 </div>
