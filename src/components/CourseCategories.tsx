@@ -83,11 +83,11 @@ export function CourseCategories() {
         
         {/* Section Header */}
         <div className="course-header text-center mb-16 max-w-4xl mx-auto">
-          <h2 className="font-display font-bold text-3xl md:text-4xl lg:text-5xl tracking-tight leading-tight mb-6">
+          <h2 className="font-display font-bold text-3xl md:text-4xl lg:text-5xl tracking-tight leading-tight mb-4">
             India's First AI-Powered Animation, VFX & Digital Content Creation Academy<br className="hidden md:block"/>
-            <span className="text-white mt-2 block">Job & Career with AI & AVGC-XR Skills</span>
+            <span className="text-white block mt-2">Job & Career with AI & AVGC-XR Skills</span>
           </h2>
-          <p className="font-body text-lg md:text-xl text-[var(--color-grey-500)]">
+          <p className="font-body text-sm md:text-base text-gray-300 font-semibold tracking-wide uppercase">
             Turn Your Creativity into a Career with AI & AVGC-XR Skills
           </p>
         </div>
@@ -100,52 +100,51 @@ export function CourseCategories() {
             return (
               <div 
                 key={course.id} 
-                className="course-card group relative rounded-[16px] overflow-hidden bg-[#1A1A1A] transition-all duration-300 hover:-translate-y-1 flex flex-col"
+                className="course-card relative rounded-2xl overflow-hidden group cursor-pointer aspect-[4/5] sm:aspect-auto sm:h-[450px]"
                 style={{
                   '--card-accent': accentColor,
-                  border: '1px solid color-mix(in srgb, var(--card-accent) 40%, transparent)',
+                  border: '1px solid color-mix(in srgb, var(--card-accent) 60%, transparent)',
                 } as React.CSSProperties}
               >
-                {/* Glow Effect */}
+                {/* Background Image that covers the whole card */}
+                <img 
+                  src={course.placeholderImage} 
+                  alt={course.category} 
+                  className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105 z-0"
+                />
+
+                {/* Dark Gradient Overlay for text readability (bottom to top) */}
+                <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent z-10 pointer-events-none" />
+
+                {/* Glow Effect on Hover */}
                 <div 
-                  className="absolute inset-0 opacity-0 group-hover:opacity-25 transition-opacity duration-300 pointer-events-none z-0"
-                  style={{ boxShadow: '0 0 24px 2px var(--card-accent)' }}
+                  className="absolute inset-0 opacity-0 group-hover:opacity-40 transition-opacity duration-500 pointer-events-none z-10"
+                  style={{ boxShadow: 'inset 0 0 40px 5px var(--card-accent)' }}
                 />
 
                 {/* Interactive border overlay for 100% opacity on hover */}
                 <div 
-                  className="absolute inset-0 rounded-[16px] border border-[var(--card-accent)] opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none z-20" 
+                  className="absolute inset-0 rounded-2xl border-2 border-[var(--card-accent)] opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none z-20" 
                 />
 
-                {/* Image Container */}
-                <div className="relative w-full aspect-[4/5] overflow-hidden shrink-0">
-                  <img 
-                    src={course.placeholderImage} 
-                    alt={course.category} 
-                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-[1.04]"
-                  />
-                  {/* Overlay gradient */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#1A1A1A] via-[#1A1A1A]/30 to-transparent opacity-100 z-10" />
-                  
-                  {/* Badge */}
-                  <span 
-                    className="absolute top-5 left-5 px-3 py-1 text-[11px] font-mono font-bold uppercase tracking-wider rounded-full backdrop-blur-sm transition-colors duration-300 z-20"
-                    style={{ 
-                      backgroundColor: 'rgba(0,0,0,0.6)', 
-                      color: 'var(--card-accent)',
-                      border: '1px solid var(--card-accent)'
-                    }}
-                  >
-                    {course.badgeCode}
-                  </span>
-                </div>
+                {/* Badge */}
+                <span 
+                  className="absolute top-5 left-5 px-3 py-1 text-[10px] font-mono font-bold uppercase tracking-wider rounded-full backdrop-blur-md z-30 transition-transform duration-500"
+                  style={{ 
+                    backgroundColor: 'rgba(0,0,0,0.5)', 
+                    color: 'white',
+                    border: '1px solid var(--card-accent)'
+                  }}
+                >
+                  {course.badgeCode}
+                </span>
 
-                {/* Card Content */}
-                <div className="relative p-6 pt-0 bg-[#1A1A1A] flex-1 flex flex-col z-20 -mt-20">
-                  <h3 className="font-display font-bold text-xl md:text-2xl mb-3 text-white leading-snug">
+                {/* Card Content - Pinned to bottom */}
+                <div className="absolute bottom-0 left-0 w-full p-6 z-30 flex flex-col justify-end">
+                  <h3 className="font-display font-bold text-lg md:text-xl mb-3 text-white leading-snug drop-shadow-lg">
                     {course.title}
                   </h3>
-                  <p className="font-body text-sm text-[var(--color-grey-500)] leading-relaxed">
+                  <p className="font-body text-[12px] text-gray-300 leading-relaxed drop-shadow-md">
                     {course.skills}
                   </p>
                 </div>
