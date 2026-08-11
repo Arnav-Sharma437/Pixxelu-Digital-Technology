@@ -93,14 +93,14 @@ export function CourseCategories() {
         </div>
 
         {/* Card Grid */}
-        <div className="course-grid grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="course-grid grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
           {courses.map((course) => {
             const accentColor = categoryColorMap[course.category] || '#E85C2B';
 
             return (
               <div 
                 key={course.id} 
-                className="course-card relative rounded-2xl overflow-hidden group cursor-pointer aspect-[4/5] sm:aspect-auto sm:h-[450px]"
+                className="course-card relative rounded-[14px] overflow-hidden group cursor-pointer aspect-[4/5] sm:aspect-auto sm:h-[380px]"
                 style={{
                   '--card-accent': accentColor,
                   border: '1px solid color-mix(in srgb, var(--card-accent) 60%, transparent)',
@@ -110,11 +110,11 @@ export function CourseCategories() {
                 <img 
                   src={course.placeholderImage} 
                   alt={course.category} 
-                  className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105 z-0"
+                  className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.03] z-0"
                 />
 
                 {/* Dark Gradient Overlay for text readability (bottom to top) */}
-                <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent z-10 pointer-events-none" />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/60 to-transparent z-10 pointer-events-none" />
 
                 {/* Glow Effect on Hover */}
                 <div 
@@ -124,14 +124,14 @@ export function CourseCategories() {
 
                 {/* Interactive border overlay for 100% opacity on hover */}
                 <div 
-                  className="absolute inset-0 rounded-2xl border-2 border-[var(--card-accent)] opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none z-20" 
+                  className="absolute inset-0 rounded-[14px] border-2 border-[var(--card-accent)] opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none z-20" 
                 />
 
                 {/* Badge */}
                 <span 
-                  className="absolute top-5 left-5 px-3 py-1 text-[10px] font-mono font-bold uppercase tracking-wider rounded-full backdrop-blur-md z-30 transition-transform duration-500"
+                  className="absolute top-4 left-4 px-2.5 py-1 text-[9px] font-mono font-bold uppercase tracking-wider rounded-md backdrop-blur-md z-30 transition-transform duration-500"
                   style={{ 
-                    backgroundColor: 'rgba(0,0,0,0.5)', 
+                    backgroundColor: 'rgba(0,0,0,0.6)', 
                     color: 'white',
                     border: '1px solid var(--card-accent)'
                   }}
@@ -140,11 +140,11 @@ export function CourseCategories() {
                 </span>
 
                 {/* Card Content - Pinned to bottom */}
-                <div className="absolute bottom-0 left-0 w-full p-6 z-30 flex flex-col justify-end">
-                  <h3 className="font-display font-bold text-lg md:text-xl mb-3 text-white leading-snug drop-shadow-lg">
+                <div className="absolute bottom-0 left-0 w-full p-5 z-30 flex flex-col justify-end">
+                  <h3 className="font-display font-bold text-[16px] md:text-[18px] mb-2 text-white leading-[1.3] drop-shadow-lg">
                     {course.title}
                   </h3>
-                  <p className="font-body text-[12px] text-gray-300 leading-relaxed drop-shadow-md">
+                  <p className="font-body text-[10.5px] text-gray-300/90 leading-[1.5] drop-shadow-md pr-1">
                     {course.skills}
                   </p>
                 </div>
